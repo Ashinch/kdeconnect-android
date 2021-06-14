@@ -194,7 +194,7 @@ public class BackgroundService extends Service {
                     device.disconnect();
                 }
             }
-
+            notifyOnDeviceListChanged(true, device.getName());
             onDeviceListChanged();
         }
 
@@ -212,9 +212,27 @@ public class BackgroundService extends Service {
             } else {
                 //Log.d("KDE/onConnectionLost","Removing connection to unknown device");
             }
+            notifyOnDeviceListChanged(false, "");
             onDeviceListChanged();
         }
     };
+
+    private void notifyOnDeviceListChanged(boolean isConnected, String deviceName) {
+        NotificationManager notificationManager = ContextCompat.getSystemService(this, NotificationManager.class);
+
+        Notification notification = new NotificationCompat.Builder(this,
+                NotificationHelper.Channels.DEFAULT)
+                .setContentTitle(getString(isConnected
+                        ? R.string.foreground_notification_devices
+                        : R.string.foreground_notification_no_devices, deviceName))
+                .setContentIntent(PendingIntent.getActivity(this, 0, new Intent(this, MainActivity.class), PendingIntent.FLAG_UPDATE_CURRENT))
+                .setSmallIcon(R.drawable.ic_notification)
+                .setAutoCancel(true)
+                .setDefaults(Notification.DEFAULT_ALL)
+                .build();
+
+        NotificationHelper.notifyCompat(notificationManager, (int) System.currentTimeMillis(), notification);
+    }
 
     public ConcurrentHashMap<String, Device> getDevices() {
         return devices;
