@@ -2,8 +2,24 @@
 
 KDE Connect is a multi-platform app that allows your devices to communicate (eg: your phone and your computer).
 
-This repo is personal modified version, new feature:
-- Added ability to notifications when a connection is lost or received.(branch: [notifications-connect-status](https://github.com/Ashinch/kdeconnect-android/tree/notifications-connect-status))
+This repo is personal modified version, additional features:
+
+- Added ability to notifications when a connection is lost or received. (branch: [notifications-connect-status](https://github.com/Ashinch/kdeconnect-android/tree/notifications-connect-status))
+- Added ability to send SMS short code to clipboard. (branch: [send-sms-short-code](https://github.com/Ashinch/kdeconnect-android/tree/send-sms-short-code))
+> The SMS short code extraction function modifies the `SmsCodeUtils.java` source file in the [tianma8023/SmsCode](https://github.com/tianma8023/SmsCode) repository.
+
+---
+KDE Connect 是一个多平台的应用程序，允许您的设备进行通信（例如：您的手机和您的电脑）。
+
+此仓库是个人修改版本，额外的功能:
+
+- 添加了连接丢失或重连时发送通知的功能。 (branch: [notifications-connect-status](https://github.com/Ashinch/kdeconnect-android/tree/notifications-connect-status))
+
+- 添加自动提取并发送短信验证码至电脑剪贴板功能。 (branch: [send-sms-short-code](https://github.com/Ashinch/kdeconnect-android/tree/send-sms-short-code))
+
+  ![send-sms-short-code.gif](https://github.com/Ashinch/kdeconnect-android/blob/master/screenshots/send-sms-short-code.gif?raw=true)
+> 验证码提取功能修改于 [tianma8023/SmsCode](https://github.com/tianma8023/SmsCode) 仓库中的 `SmsCodeUtils.java` 源文件。
+
 
 ## (Some) Features
 - **Shared clipboard**: copy and paste between your phone and your computer (or any other device).
