@@ -79,6 +79,10 @@ public class ClipboardPlugin extends Plugin {
         device.sendPacket(np);
     }
 
+    public void initiativePropagateClipboard(String content) {
+        propagateClipboard(content);
+    }
+
     private void sendConnectPacket() {
         String content = ClipboardListener.instance(context).getCurrentContent();
         NetworkPacket np = new NetworkPacket(ClipboardPlugin.PACKET_TYPE_CLIPBOARD_CONNECT);

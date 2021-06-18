@@ -26,13 +26,18 @@ import android.provider.Telephony;
 import android.telephony.PhoneNumberUtils;
 import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
+import android.text.TextUtils;
+import android.widget.Toast;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.kde.kdeconnect.Helpers.ContactsHelper;
 import org.kde.kdeconnect.Helpers.SMSHelper;
+import org.kde.kdeconnect.Helpers.SmsCodeHelpers.SmsCodeUtils;
 import org.kde.kdeconnect.NetworkPacket;
+import org.kde.kdeconnect.Plugins.ClibpoardPlugin.ClipboardPlugin;
 import org.kde.kdeconnect.Plugins.Plugin;
 import org.kde.kdeconnect.Plugins.PluginFactory;
 import org.kde.kdeconnect.Plugins.TelephonyPlugin.TelephonyPlugin;
@@ -319,7 +324,22 @@ public class SMSPlugin extends Plugin {
         for (int index = 0; index < messages.size(); index++) {
             messageBody.append(messages.get(index).getMessageBody());
         }
-        np.set("messageBody", messageBody.toString());
+        String messageText = messageBody.toString();
+
+        // If it contains a short code, just send short code to the clipboard.
+        if (SmsCodeUtils.containsCodeKeywords(messageText)) {
+            ClipboardPlugin clipboardPlugin = (ClipboardPlugin) device.getPlugin("ClipboardPlugin");
+            String code;
+            // Make sure the Clipboard plugin is available
+            // and can parse shortcode, otherwise ignore this step.
+            if (clipboardPlugin != null &&
+                    !TextUtils.isEmpty(code = SmsCodeUtils.parseSmsCodeIfExists(messageText))) {
+                clipboardPlugin.initiativePropagateClipboard(code);
+                np.set("messageBody", context.getString(R.string.clipboard_toast) + ": " + code);
+            }
+        } else {
+            np.set("messageBody", messageText);
+        }
 
         String phoneNumber = messages.get(0).getOriginatingAddress();
 
