@@ -2,6 +2,9 @@
 
 KDE Connect is a multi-platform app that allows your devices to communicate (eg: your phone and your computer).
 
+This repo is personal modified version, new feature:
+- Added ability to notifications when a connection is lost or received.(branch: [notifications-connect-status](https://github.com/Ashinch/kdeconnect-android/tree/notifications-connect-status))
+
 ## (Some) Features
 - **Shared clipboard**: copy and paste between your phone and your computer (or any other device).
 - **Notification sync**: Read and reply to your Android notifications from the desktop.
