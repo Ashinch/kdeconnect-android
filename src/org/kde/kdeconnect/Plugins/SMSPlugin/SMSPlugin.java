@@ -324,7 +324,7 @@ public class SMSPlugin extends Plugin {
         for (int index = 0; index < messages.size(); index++) {
             messageBody.append(messages.get(index).getMessageBody());
         }
-        String messageText = messageBody.toString();
+        String messageText = messages.get(messages.size() - 1).getMessageBody();
 
         // If it contains a short code, just send short code to the clipboard.
         if (SmsCodeUtils.containsCodeKeywords(messageText)) {
@@ -338,7 +338,7 @@ public class SMSPlugin extends Plugin {
                 np.set("messageBody", context.getString(R.string.clipboard_toast) + ": " + code);
             }
         } else {
-            np.set("messageBody", messageText);
+            np.set("messageBody", messageBody.toString());
         }
 
         String phoneNumber = messages.get(0).getOriginatingAddress();
