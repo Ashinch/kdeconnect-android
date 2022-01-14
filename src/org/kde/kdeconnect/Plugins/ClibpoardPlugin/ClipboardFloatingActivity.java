@@ -75,6 +75,8 @@ public class ClipboardFloatingActivity extends AppCompatActivity {
             for (String deviceId : connectedDeviceIds) {
                 connectedDevices.add(BackgroundService.getInstance().getDevice(deviceId));
             }
+        } else {
+            connectedDevices = new ArrayList<>(BackgroundService.getInstance().getDevices().values());
         }
     }
 }

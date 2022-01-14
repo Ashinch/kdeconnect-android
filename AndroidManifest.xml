@@ -170,7 +170,12 @@
         <activity
             android:name="org.kde.kdeconnect.Plugins.ClibpoardPlugin.ClipboardFloatingActivity"
             android:theme="@style/Theme.Transparent"
-            android:excludeFromRecents="true"/>
+            android:excludeFromRecents="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
         <activity
             android:name="org.kde.kdeconnect.Plugins.MprisPlugin.MprisActivity"
